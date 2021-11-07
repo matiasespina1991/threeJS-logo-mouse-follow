@@ -1,3 +1,7 @@
+body {
+  cursor: pointer;
+}
+
 .ranges-container {
   position: absolute;
   color: white;
