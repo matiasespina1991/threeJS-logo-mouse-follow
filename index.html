@@ -19,7 +19,7 @@ canvas {
     <div class="mouseFollowSensibility_container">
         <p>Mouse follow sensitibity</p>
         <div class="range-wrapper">
-            <input min="-100" max="-1" value="-50" id="mouseFollowSensibility_range" oninput="displayRange()" type="range">
+            <input min="-100" max="-1" value="-4" id="mouseFollowSensibility_range" oninput="displayRange()" type="range">
             <div id="mouseFollowSensibility_display">0</div>
         </div>
     </div>
@@ -39,6 +39,9 @@ canvas {
 <script src="./js/OBJLoader.js"></script>
 <script src="./js/MTLLoader.js"></script>
 <script src="./js/OrbitControls.js"></script>
+<!-- <script src="./js/FBXLoader.js"></script> -->
+<script src="./js/GLTFLoader.js"></script>
+
 <!--<script src="./js/3D/dat.gui.min.js"></script>-->
 <!--<script src="/js/3D/stats.min.js"></script> -->
 
@@ -50,7 +53,8 @@ canvas {
     // let zoom_range = document.getElementById('zoom_range');
     // let zoom_display = document.getElementById('zoom_display')
     // let zoom_variable = zoom_range.value;
-
+    // import { GLTFLoader } from './js/GLTFLoader.js';
+    
     function displayRange(){
         mouseFollowSensibility_display.innerHTML = mouseFollowSensibility_range.value.toString().substring(1)
         mouseFollowSensibility_variable = mouseFollowSensibility_range.value
@@ -122,10 +126,8 @@ canvas {
         scene.add(light);
 
     }
-
     function initModel() {
-
-        var mtlLoader = new THREE.MTLLoader();
+                var mtlLoader = new THREE.MTLLoader();
         mtlLoader.setPath('models/');
         //加载mtl文件
         mtlLoader.load('fu.mtl', function (material) {
@@ -140,8 +142,49 @@ canvas {
                 scene.add(object);
             })
         });
+
+        // const gltfLoader = new GLTFLoader();
+        // const url = './models/florweb.glb';
+        // gltfLoader.load(url, (gltf) => {
+        //     const root = gltf.scene;
+        // scene.add(root);
+
+        // Load a glTF resource
+    // loader.load(
+    //     // resource URL
+    //     './models/florweb.glb',
+    //     // called when the resource is loaded
+    //     function ( gltf ) {
+
+    //         scene.add( gltf.scene );
+
+    //         gltf.animations; // Array<THREE.AnimationClip>
+    //         gltf.scene; // THREE.Group
+    //         gltf.scenes; // Array<THREE.Group>
+    //         gltf.cameras; // Array<THREE.Camera>
+    //         gltf.asset; // Object
+
+    //     },
+    //     // called while loading is progressing
+    //     function ( xhr ) {
+
+    //         console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+    //     },
+    //     // called when loading has errors
+    //     function ( error ) {
+
+    //         console.log( 'An error happened' );
+
+    //     }
+    // );
+
+};
+       
+
         
-    }
+        
+    
 
     
     /*
@@ -176,7 +219,7 @@ canvas {
     	  camera.position.y += (-mouseY - camera.position.y) * 1;
 
     	  camera.lookAt(scene.position); //相机聚焦的位置
-    	  renderer.setClearColor( "black", 1 ); 
+    	  renderer.setClearColor( "black", 0.9 ); 
     	  renderer.render(scene, camera);
           //减小窗口大小可用/2
     	  renderer.setSize(window.innerWidth, window.innerHeight);
